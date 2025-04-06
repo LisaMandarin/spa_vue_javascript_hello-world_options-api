@@ -1,19 +1,22 @@
 <template>
-  <div class="nav-bar__container">
-    <nav class="nav-bar">
-      <NavBarBrand />
-      <NavBarTabs />
-      <NavBarButtons />
-    </nav>
+  <div class="nav-bar__buttons">
+    <template v-if="!isAuthenticated">
+      <SignupButton />
+      <LoginButton />
+    </template>
+    <template v-if="isAuthenticated">
+      <logoutButton />
+    </template>
+    <nav class="nav-bar"></nav>
   </div>
 </template>
 
-<script>
-import NavBarBrand from "@/components/navigation/desktop/nav-bar-brand.vue";
-import NavBarButtons from "@/components/navigation/desktop/nav-bar-buttons.vue";
-import NavBarTabs from "@/components/navigation/desktop/nav-bar-tabs.vue";
+<script setup>
+import LoginButton from "@/components/buttons/login-button.vue";
+import logoutButton from "@/components/buttons/logout-button.vue";
+import SignupButton from "@/components/buttons/signup-button.vue";
 
-export default {
-  components: { NavBarBrand, NavBarButtons, NavBarTabs },
-};
+import { useAuth0 } from "@auth0/auth0-vue";
+
+const { isAuthenticated } = useAuth0();
 </script>
